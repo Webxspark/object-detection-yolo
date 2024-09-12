@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./com
 import { Input } from "./components/ui/input"
 import { Label } from "./components/ui/label"
 import { GlobalContext } from "./context/global-context"
-import { Loader } from "lucide-react"
+import { Loader, Pointer } from "lucide-react"
 
 function App() {
   const { utils } = useContext(GlobalContext);
@@ -118,9 +118,14 @@ function App() {
                   processedImage && <div className="relative">
                     <Label>Output</Label>
                     <img
-                      className="w-full rounded-md"
+                      className="w-full rounded-md cursor-pointer"
+                      title="Click to open image in new tab"
                       src={`/api/files/${processedImage}`}
+                      onClick={() => window.open(`/api/files/${processedImage}`)}
                     />
+                    <p className="text-sm flex items-center justify-end text-slate-800 dark:text-slate-400">
+                      <Pointer className="animate-bounce mr-1" /> Click on the image to open in new tab
+                    </p>
                     <Button onClick={downloadProcessedImage} size="custom" className="absolute top-3 right-0 px-1">Download</Button>
                   </div>
                 }

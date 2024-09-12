@@ -6,6 +6,7 @@ from ultralytics import YOLO
 from methods.functions import *
 import threading
 import time
+import random
 
 model = YOLO("./models/yolov10x.pt")
 print(f"Model loaded - yolov10x.pt")
@@ -20,8 +21,9 @@ def index():
 def detect():
     # get image from request
     image = request.files["image"]
-    #create a temporary file to store the image
-    image_path = f"./tmp/{image.filename}"
+    #create a temporary file to store the image with the random filename
+    random_filename = str(random.randint(100000, 999999))
+    image_path = f"./tmp/{random_filename}.jpg"
     #check if the directory exists
     if not os.path.exists("./tmp"):
         os.makedirs("./tmp")
@@ -51,8 +53,16 @@ def cleanup():
     # loop through the files and delete files older than 5mins
     for file in files:
         if time.time() - os.path.getctime(f"./tmp/{file}") > 300:
-            print(f"Deleting {file} - older than 5mins ({(time.time() - os.path.getctime(f'./tmp/{file}'))*60}mins)")
+            print(f"Deleting {file} - older than 5mins ({(time.time() - os.path.getctime(f'./tmp/{file}'))}s)")
             os.remove(f"./tmp/{file}")
+    # also for the outputs directory
+    files = os.listdir("./outputs")
+    # loop through the files and delete files older than 5mins
+    for file in files:
+        if time.time() - os.path.getctime(f"./outputs/{file}") > 300:
+            print(f"Deleting {file} - older than 5mins ({(time.time() - os.path.getctime(f'./outputs/{file}'))}s)")
+            os.remove(f"./outputs/{file}")
+            
     # sleep for 1min
     time.sleep(60)
 
