@@ -53,8 +53,8 @@ def cleanup():
         if time.time() - os.path.getctime(f"./tmp/{file}") > 300:
             print(f"Deleting {file} - older than 5mins ({(time.time() - os.path.getctime(f'./tmp/{file}'))*60}mins)")
             os.remove(f"./tmp/{file}")
-    # sleep for 5mins
-    time.sleep(300)
+    # sleep for 1min
+    time.sleep(60)
 
 # start the cleanup function in a separate thread
 threading.Thread(target=cleanup).start()
