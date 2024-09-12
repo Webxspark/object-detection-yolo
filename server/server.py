@@ -39,6 +39,10 @@ def detect():
         "image" : random_filename
     })
 
+@app.route("/api/files/<path:filename>")
+def files(filename):
+    return send_from_directory("./outputs", filename)
+
 def cleanup():
     # a function to clear files in tmp directory after 5mins of uploading'
     # get the list of files in the tmp directory

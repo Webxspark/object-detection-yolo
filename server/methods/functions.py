@@ -31,4 +31,4 @@ def detect_objects(image_path, model, output = "./outputs"):
     random_filename = str(random.randint(100000, 999999))
     cv2.imwrite(f"{output}/{random_filename}.jpg", result_img)
     cv2.waitKey(0)
-    return random_filename
+    return f"{random_filename}.jpg"
