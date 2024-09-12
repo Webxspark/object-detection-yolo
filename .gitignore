@@ -1,0 +1,11 @@
+outputs
+uploads
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.gif
+*.mp4
+*.webm
+tmp/
+__pycache__/
